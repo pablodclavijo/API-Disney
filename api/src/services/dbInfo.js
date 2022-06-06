@@ -95,14 +95,30 @@ const getMovieDetail = async (id) =>{
     return movie
 }
 
-const queryCharacters = async (name, age = null, weight = null, movieId = null) =>{
 
-    const characters = movieId ? await Character.findAll({where: {name: name}}) : j
+const searchCharacters = async (endpoint, argument) =>{
+
+    const characters = {}
+    switch(endpoint){
+        case "name": characters = await Character.findAll({where: {name : argument}})
+        case "age" : characters = await Character.findAll({where: {age : argument}})
+        case "weight" : characters = await  Character.findAll({where: {weight : argument}})
+        default : characters = false
+    }       
+    
     if(!characters) return false
-
     return characters
+}
 
-} 
+const filterCharactersByMovie= async (movieId) =>{
+
+    const movie = await Movie.findByPk(movieId)
+    if(!movie) return false
+    const characters = await movie.getCharacters() // lazy loading
+    if(!characters) return false
+    return characters
+ 
+}
 const searchMoviesByTitle = async (title , sort = null ) =>{
 
     const acceptedSortValues = ['ASC', 'DESC']
@@ -137,5 +153,7 @@ module.exports = {
     getMovieDetail,
     createMovie,
     searchMoviesByTitle,
-    searchMoviesByGenre
+    searchMoviesByGenre,
+    filterCharactersByMovie,
+    searchCharacters
 }
