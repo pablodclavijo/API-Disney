@@ -11,12 +11,6 @@ const getAllCharacters = async () =>{
     return characters; 
 }
 
-const getOneCharacter = async (characterId) =>{
-
-    const character = await Character.findByPk(characterId);
-    if(!character) return false;
-    return character;
-}
 const createCharacter = async (characterData) =>{
 
     const newCharacter = await Character.create({...characterData})
@@ -161,7 +155,6 @@ module.exports = {
     deleteCharacter,
     updateCharacter,
     getAllCharacters,
-    getOneCharacter,
     createCharacter,
     getCharacterDetail,
     deleteMovie,
