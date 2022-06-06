@@ -29,6 +29,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Character } = sequelize.models;
 const {Genre} = sequelize.models;
 const {Movie} = sequelize.models;
+const {User} =sequelize.models;
 
 Character.belongsToMany(Movie, {through: "movie_characters"})
 Movie.belongsToMany(Character, {through: "movie_characters"})

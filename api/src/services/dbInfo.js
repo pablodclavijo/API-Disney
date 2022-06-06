@@ -1,5 +1,5 @@
 const sequelize = require ('sequelize')
-const {Character, Movie, Genre} = require('../db')
+const {Character, Movie, Genre, User} = require('../db')
 const Op = sequelize.Op
 
 
@@ -139,6 +139,24 @@ const searchMoviesByGenre = async (genreId, sort = null) =>{
     return movies
     
 }
+const passwordHash = async (password, saltRounds) => {
+    try {
+      const salt = await bcrypt.genSalt(saltRounds)
+      return await bcrypt.hash(password, salt)
+    } catch (err) {
+      console.log(err)
+    }
+    return null
+  }
+
+const userCreate = async (email, password) =>{
+
+    const hashedPassword = passwordHash(password, 10);
+    if(!hashedPassword || !email) return false
+    const newUser = User.create({email: email, hashedPassword : hashedPassword}).catch(err => console.log(err))
+    if(!newUser) return false
+    return newUser
+}
 module.exports = {
     deleteCharacter,
     updateCharacter,
@@ -155,5 +173,6 @@ module.exports = {
     searchMoviesByTitle,
     searchMoviesByGenre,
     filterCharactersByMovie,
-    searchCharacters
+    searchCharacters,
+    userCreate
 }
