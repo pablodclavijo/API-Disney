@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const { fetchAllCharacters, getById, postCharacterInDb, updateCharacterInDb, 
     deleteCharacterInDb, queryCharactersByName, filterCharactersByAge, filterCharactersByWeight,
-    searchCharactersByMovie, characterDetail } = require('../controllers/characters');
+    searchCharactersByMovie } = require('../controllers/characters');
 
 const router = Router();
 
