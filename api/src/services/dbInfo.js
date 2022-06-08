@@ -99,8 +99,6 @@ const searchCharacters = async (endpoint, argument) =>{
         case "weight" : characters = await  Character.findAll({where: {weight : argument}})
         default : characters = false
     }       
-    
-    if(!characters) return false
     return characters
 }
 

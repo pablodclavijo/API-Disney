@@ -1,20 +1,13 @@
 const {Router} = require('express');
-const { fetchAllCharacters, getById, postCharacterInDb, updateCharacterInDb, 
-    deleteCharacterInDb, queryCharactersByName, filterCharactersByAge, filterCharactersByWeight,
-    searchCharactersByMovie } = require('../controllers/characters');
+const charactersHandlers = require('../controllers/characters.js');
 
 const router = Router();
 
-router.get('/', fetchAllCharacters)
-router.get('/:id', getById)
-router.post('/', postCharacterInDb)
-router.delete('/:id', deleteCharacterInDb)
-router.put('/', updateCharacterInDb)
-router.get('/', queryCharactersByName)
-router.get('/', filterCharactersByAge)
-router.get('/', filterCharactersByWeight)
-router.get('/', searchCharactersByMovie)
-
+router.get('/', charactersHandlers.getCharactersHandler)
+router.delete('/', charactersHandlers.deleteCharacterHandler)
+router.post('/', charactersHandlers.postCharacterHandler)
+router.put('/', charactersHandlers.putCharacterHandler)
+router.get('/:id', charactersHandlers.getCharactersByIdHandler)
 
 
 
