@@ -94,7 +94,7 @@ const searchCharacters = async (endpoint, argument) =>{
 
     const characters = {}
     switch(endpoint){
-        case "name": characters = await Character.findAll({where: {name : argument}})
+        case "name": characters = await Character.findAll({where: {[Op.substring] : argument}})
         case "age" : characters = await Character.findAll({where: {age : argument}})
         case "weight" : characters = await  Character.findAll({where: {weight : argument}})
         default : characters = false
