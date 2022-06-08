@@ -5,7 +5,7 @@ const transporter = nodemailer.createTransport({
     post: 587,
     secure: false,
     auth: {
-        user: "cristian.moore44@ethereal.email", 
+        user: "cristian.moore44@ethereal.email",  
         pass: "hmAmJRwwFVYknt4bR2"
     }
 })
@@ -21,7 +21,7 @@ const sendEmail = (addressee) =>{
 
     transporter.sendMail(mailOptions, (err, info) =>{
         if(err) return err
-        return true
+        return info
     })
 }
 

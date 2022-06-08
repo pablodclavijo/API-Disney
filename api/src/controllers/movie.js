@@ -1,4 +1,4 @@
-const {} = require('../services/dbInfo')
+const moviesDbInfo = require('../services/dbInfo.js')
 
 
 
