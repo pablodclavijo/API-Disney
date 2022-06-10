@@ -1,7 +1,11 @@
 const {Router} = require('express')
-const getTemperaments = require('../controllers/temperament')
+const movieHandlers = require('../controllers/movie.js')
 const router = Router()
 
-router.get('/', getTemperaments)
+router.get('/', movieHandlers.getMoviesHandler)
+router.delete('/', movieHandlers.deleteMovieHandler)
+router.put('/', movieHandlers.putMovieHandler)
+router.get('/:id', movieHandlers.getMovieByIdHandler)
+router.post('/', movieHandlers.postMovieHandler)
 
 module.exports = router

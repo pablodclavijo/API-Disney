@@ -51,12 +51,6 @@ const getAllMovies= async () =>{
     return movies; 
 }
 
-const getOneMovie= async (movieId) =>{
-
-    const movie = await Movie.findByPk(movieId, {include : Character });
-    if(!movie) return false;
-    return movie;
-}
 const createMovie = async (movieData) =>{
 
     const newMovie = await Movie.create({...movieData})
@@ -114,7 +108,7 @@ const filterCharactersByMovie= async (movieId) =>{
 const searchMoviesByTitle = async (title , sort = null ) =>{
 
     const acceptedSortValues = ['ASC', 'DESC']
-    if(sort != false && !acceptedSortValues.includes(sort)) return false
+    if(sort && !acceptedSortValues.includes(sort)) return false
     const movies = sort ? await Movie.findAll({where: {title: title}, order : [['date', sort]]}) :
     await Movie.findAll({where: {title: title}})
     if(!movies) return false

@@ -1,10 +1,53 @@
 const moviesDbInfo = require('../services/dbInfo.js')
 
-async function getMoviesHander (req, res) {
+async function getMoviesHandler (req, res){
 
-    const {}
-} 
+    const {name, genreId, order} = req.params
+    if((order && genreId)) return res.status(400).send("name and genre can only be queryed one at a time")
+    const movies = {}
+    if(name) movies = await moviesDbInfo.searchMoviesByTitle(name, order ? order : null).catch(err => console.log(err))
+    if(genreId) movies = await moviesDbInfo.searchMoviesByGenre(genreId, order ? order : null).catch(err => console.log(err))
+    movies = await moviesDbInfo.getAllMovies().catch(err => console.log(err))
+    if(!movies) return res.status(404).send("movies not found")
+    return res.status(200).send(movies)
 
-module.exports = {
+    }
 
+async function getMovieByIdHandler (req, res){
+
+    const {id} = req.params
+    const movieDetail = await moviesDbInfo.getMovieDetail(id).catch(err => consolelog(err))
+    if(!movieDetail) return res.status(404).send("movie's id doesn't match database")
+    return res.status(200).send(movieDetail)
+}
+
+async function deleteMovieHandler (req, res) {
+     
+    const {id} = req.body
+    const isDeleted = await moviesDbInfo.deleteMovie(id).catch(err => console.log(err))
+    if(!isDeleted) return res.status(400).send("failed")
+    return res.status(200).send("movie succesfully deleted")
+}
+
+async function putMovieHandler (req, res) {
+
+    const {id, newValues} = req.body
+    const isUpdated = await moviesDbInfo.updateMovie(id, newValues)
+    if(!isUpdated) return res.status(400).send("update failed")
+    return res.status(200).send(isUpdated)
+}
+
+async function postMovieHandler (req, res){
+
+    const {movieData} = req.body
+    const isPosted = await moviesDbInfo.createMovie(movieData)
+    if(!isPosted) return res.status(400).send("creatiion failed")
+    return res.status(200).send(isPosted)
+}
+module.exports ={
+    postMovieHandler,
+    putMovieHandler,
+    getMoviesHandler,
+    getMovieByIdHandler,
+    deleteMovieHandler
 }
