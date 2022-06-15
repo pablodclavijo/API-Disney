@@ -1,13 +1,15 @@
 const { Router } = require('express');
-const dogs = require('./dogs')
-const temperament = require('./temperament')
-const dog = require('./dog')
+const auth = require('./auth')
+const movies = require('./movies')
+const characters = require('./characters')
+const passport = require('passport')
 
+const jwtMiddleware = passport.authenticate('jwt', { session: false })
 
 const router = Router();
 
-router.use('/characters', characters)
+router.use('/characters', jwtMiddleware, characters)
 router.use('/auth', auth)
-router.use('/movies', movies)
+router.use('/movies', jwtMiddleware, movies)
 
 module.exports = router;
