@@ -143,6 +143,13 @@ const userCreate = async (email, password) =>{
     if(!newUser) return false
     return newUser
 }
+
+const getUser = async (email) => {
+
+    const user = await User.findByPk(email).catch(err => console.log(err))
+    if(!user) return false
+    return user
+}
 module.exports = {
     deleteCharacter,
     updateCharacter,
@@ -159,5 +166,6 @@ module.exports = {
     searchMoviesByGenre,
     filterCharactersByMovie,
     searchCharacters,
-    userCreate
+    userCreate,
+    getUser
 }

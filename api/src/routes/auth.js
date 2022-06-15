@@ -1,8 +1,18 @@
 const {Router} = require('express');
-const { postNewDog } = require('../controllers/dogs');
+const passport = require('passport');
+const tokenGen = require('../middleware/jwt/jwt');
 
 const router = Router();
 
-router.post('/', postNewDog)
+router.get('/', (req, res)=> res.status(200).send("go to /login or /register to continue"))
+router.post('/register', passport.authenticate('signup', { session: false }),
+async (req, res) => {
+  res.json({
+    message: 'Signup successful',
+    user: req.user
+  });
+})
+router.post('/login', tokenGen)
+
 
 module.exports = router
