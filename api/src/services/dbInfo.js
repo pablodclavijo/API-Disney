@@ -159,7 +159,6 @@ module.exports = {
     deleteMovie,
     updateMovie,
     getAllMovies,
-    getOneMovie,
     getMovieDetail,
     createMovie,
     searchMoviesByTitle,

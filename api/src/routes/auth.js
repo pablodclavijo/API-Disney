@@ -12,7 +12,10 @@ async (req, res) => {
     user: req.user
   });
 })
-router.post('/login', tokenGen)
+router.post('/login', tokenGen, 
+async(req, res) =>{
+  res.status(200).send("token succesfully generated")
+})
 
 
 module.exports = router
